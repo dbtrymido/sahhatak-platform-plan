@@ -33,21 +33,21 @@ export default function HeroSection() {
 
       {/* Dot pattern */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
+            "radial-gradient(circle, rgba(255,255,255,0.35) 1.2px, transparent 1.2px)",
+          backgroundSize: "18px 18px",
         }}
       />
 
       {/* Hero container */}
-      <div className="relative container-app pt-12 pb-16 sm:pt-14 sm:pb-18 lg:pt-16 lg:pb-20">
+      <div className="relative container-app pt-8 pb-14 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-18">
 
         <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center gap-4 sm:gap-5">
 
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white border border-white/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-white/14 px-3 py-1.5 text-xs font-medium text-primary-foreground border border-white/20 backdrop-blur-sm">
             <ShieldCheck className="h-3.5 w-3.5" />
             <span>منصة رعاية صحية موثوقة في مصر</span>
           </div>
