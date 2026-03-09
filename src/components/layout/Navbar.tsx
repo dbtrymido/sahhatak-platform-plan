@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 
 const navLinks = [
@@ -20,41 +20,27 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border/50">
       <div className="container-app">
         <div className="flex items-center justify-between h-16 lg:h-[4.5rem]">
-          {/* Logo */}
           <Link to="/" className="shrink-0 hover-lift">
             <Logo />
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`nav-link ${isActive(link.path) ? "active" : ""}`}
-              >
+              <Link key={link.path} to={link.path} className={`nav-link ${isActive(link.path) ? "active" : ""}`}>
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link 
-              to="/login" 
-              className="btn-ghost text-sm px-5 py-2.5 border border-border/80 rounded-xl hover:border-primary/30"
-            >
+            <Link to="/login" className="btn-ghost text-sm px-5 py-2.5 border border-border/80 rounded-xl hover:border-primary/30">
               تسجيل الدخول
             </Link>
-            <Link 
-              to="/register" 
-              className="btn-primary text-sm px-6 py-2.5"
-            >
+            <Link to="/register" className="btn-primary text-sm px-6 py-2.5">
               إنشاء حساب
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="lg:hidden p-2.5 text-foreground rounded-xl hover:bg-muted transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -65,12 +51,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div 
-        className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${
-          mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
+      <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-out ${mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
         <div className="border-t border-border/50 bg-card">
           <nav className="container-app py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
@@ -85,18 +66,10 @@ export default function Navbar() {
             ))}
             <hr className="border-border my-3" />
             <div className="flex flex-col gap-2 pt-2">
-              <Link 
-                to="/login" 
-                className="btn-ghost border border-border text-center text-sm rounded-xl py-3" 
-                onClick={() => setMobileOpen(false)}
-              >
+              <Link to="/login" className="btn-ghost border border-border text-center text-sm rounded-xl py-3" onClick={() => setMobileOpen(false)}>
                 تسجيل الدخول
               </Link>
-              <Link 
-                to="/register" 
-                className="btn-primary text-center text-sm py-3" 
-                onClick={() => setMobileOpen(false)}
-              >
+              <Link to="/register" className="btn-primary text-center text-sm py-3" onClick={() => setMobileOpen(false)}>
                 إنشاء حساب
               </Link>
             </div>

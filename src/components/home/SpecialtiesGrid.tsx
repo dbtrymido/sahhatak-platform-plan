@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { specialties } from "@/data/specialties";
-import {
-  Smile, Fingerprint, Baby, Heart, Eye, Brain, Bone, Stethoscope, Layers
-} from "lucide-react";
+import { Smile, Fingerprint, Baby, Heart, Eye, Brain, Bone, Stethoscope, Layers } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
   Smile, Fingerprint, Baby, Heart, Eye, Brain, Bone, Stethoscope,
@@ -10,37 +8,31 @@ const iconMap: Record<string, React.ElementType> = {
 
 export default function SpecialtiesGrid() {
   return (
-    <section className="py-16 lg:py-20">
+    <section className="py-14 lg:py-18">
       <div className="container-app">
-        <div className="flex items-end justify-between mb-10">
+        <div className="section-header flex items-end justify-between gap-4">
           <div className="text-right">
-            <div className="inline-flex items-center gap-2 text-primary text-sm font-medium mb-2">
+            <div className="section-label">
               <Layers className="w-4 h-4" />
               <span>تخصصات متنوعة</span>
             </div>
-            <h2 className="section-title">دوّر حسب التخصص</h2>
-            <p className="section-subtitle">اختار التخصص اللي محتاجه وهنوصّلك بأحسن دكتور</p>
+            <h2 className="section-title">اختر تخصصك بسرعة</h2>
+            <p className="section-subtitle">اكتشف أفضل الأطباء في كل تخصص مع مقارنة واضحة للتقييمات والخبرة.</p>
           </div>
-          <Link to="/doctors" className="text-sm font-semibold text-primary hover:text-primary-light transition-colors whitespace-nowrap">
-            كل التخصصات ←
-          </Link>
+          <Link to="/doctors" className="btn-soft text-xs whitespace-nowrap">كل التخصصات</Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
           {specialties.map((spec) => {
             const IconComp = iconMap[spec.icon] || Stethoscope;
             return (
-              <Link
-                key={spec.id}
-                to={`/doctors?specialty=${spec.id}`}
-                className="group card-hover p-6 flex items-center gap-4 text-right"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-primary/8 flex items-center justify-center shrink-0 group-hover:bg-primary/15 transition-colors duration-300">
-                  <IconComp className="w-7 h-7 text-primary" />
+              <Link key={spec.id} to={`/doctors?specialty=${spec.id}`} className="card-hover p-5 flex items-center gap-3.5 text-right group">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/15">
+                  <IconComp className="w-6 h-6 text-primary" />
                 </div>
-                <div>
-                  <span className="text-sm font-bold text-foreground block">{spec.name}</span>
-                  <span className="text-xs text-muted-foreground mt-0.5 block">{spec.doctorCount} دكتور</span>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-foreground truncate">{spec.name}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{spec.doctorCount} دكتور</p>
                 </div>
               </Link>
             );
