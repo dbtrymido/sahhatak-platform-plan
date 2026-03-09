@@ -1,33 +1,44 @@
-export interface Doctor {
-  id: string;
-  name: string;
-  specialty: string;
-  specialtyId: string;
-  title: string;
-  rating: number;
-  reviewCount: number;
-  price: number;
-  city: string;
-  area: string;
-  experience: number;
-  bio: string;
-  gender: "male" | "female";
+import type { DoctorProfile, AvailabilitySlot, Review } from "@/types/domain";
+
+/**
+ * Extended doctor type for mock data — includes UI-only fields
+ * that won't come from the API but are computed on the frontend.
+ */
+export interface MockDoctor extends DoctorProfile {
+  name: string;             // joined from User.fullName
+  specialty: string;        // joined from Specialty.name
+  nextSlot: string;         // computed from AvailabilitySlots
+  avatarColor: string;      // UI placeholder until real avatars
+  initials: string;         // UI placeholder
+}
+
+/** Mock availability slots (will come from GET /api/doctors/:id/slots) */
+export interface MockTimeSlot {
+  time: string;
   available: boolean;
-  nextSlot: string;
-  avatarColor: string;
-  initials: string;
-  tags: string[];
-  qualifications: { title: string; institution: string; year: string }[];
-  timeSlots: { time: string; available: boolean; period: "morning" | "evening" }[];
-  reviews: { name: string; rating: number; text: string; date: string }[];
+  period: "morning" | "evening";
+}
+
+/** Mock reviews (will come from GET /api/doctors/:id/reviews) */
+export interface MockReview {
+  name: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
+export interface Doctor extends MockDoctor {
+  timeSlots: MockTimeSlot[];
+  reviews: MockReview[];
 }
 
 export const doctors: Doctor[] = [
   {
     id: "1",
+    userId: "u1",
+    specialtyId: "heart",
     name: "د. محمد خالد العتيبي",
     specialty: "أخصائي أمراض القلب والقسطرة التداخلية",
-    specialtyId: "heart",
     title: "استشاري جراحة القلب والأوعية الدموية",
     rating: 4.9,
     reviewCount: 120,
@@ -67,9 +78,10 @@ export const doctors: Doctor[] = [
   },
   {
     id: "2",
+    userId: "u2",
+    specialtyId: "heart",
     name: "د. سارة فهد بن سلمان",
     specialty: "استشاري جراحة القلب والأوعية الدموية",
-    specialtyId: "heart",
     title: "استشارية جراحة القلب",
     rating: 4.9,
     reviewCount: 850,
@@ -100,9 +112,10 @@ export const doctors: Doctor[] = [
   },
   {
     id: "3",
+    userId: "u3",
+    specialtyId: "bones",
     name: "د. ياسر محمود",
     specialty: "جراحة العظام",
-    specialtyId: "bones",
     title: "استشاري جراحة العظام",
     rating: 4.7,
     reviewCount: 95,
@@ -127,9 +140,10 @@ export const doctors: Doctor[] = [
   },
   {
     id: "4",
+    userId: "u4",
+    specialtyId: "children",
     name: "د. ليلى حسن",
     specialty: "أخصائية طب الأطفال",
-    specialtyId: "children",
     title: "استشارية طب الأطفال",
     rating: 4.8,
     reviewCount: 210,
@@ -154,9 +168,10 @@ export const doctors: Doctor[] = [
   },
   {
     id: "5",
+    userId: "u5",
+    specialtyId: "teeth",
     name: "د. سارة الأحمد",
     specialty: "استشاري طب الأسنان",
-    specialtyId: "teeth",
     title: "استشارية طب الأسنان",
     rating: 4.9,
     reviewCount: 173,
@@ -181,9 +196,10 @@ export const doctors: Doctor[] = [
   },
   {
     id: "6",
+    userId: "u6",
+    specialtyId: "bones",
     name: "د. خالد بن عبدالله",
     specialty: "جراحة العظام",
-    specialtyId: "bones",
     title: "استشاري جراحة العظام",
     rating: 4.8,
     reviewCount: 156,

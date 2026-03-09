@@ -1,9 +1,4 @@
-export interface Specialty {
-  id: string;
-  name: string;
-  icon: string; // lucide icon name
-  doctorCount: number;
-}
+import type { Specialty } from "@/types/domain";
 
 export const specialties: Specialty[] = [
   { id: "teeth", name: "الأسنان", icon: "Smile", doctorCount: 245 },
