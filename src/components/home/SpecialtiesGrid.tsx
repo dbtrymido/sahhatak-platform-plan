@@ -8,31 +8,30 @@ const iconMap: Record<string, React.ElementType> = {
 
 export default function SpecialtiesGrid() {
   return (
-    <section className="py-14 lg:py-18">
+    <section className="py-8 sm:py-10 lg:py-12">
       <div className="container-app">
-        <div className="section-header flex items-end justify-between gap-4">
+        <div className="flex items-end justify-between gap-3 mb-5">
           <div className="text-right">
-            <div className="section-label">
-              <Layers className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 text-primary text-xs font-medium mb-1">
+              <Layers className="w-3.5 h-3.5" />
               <span>تخصصات متنوعة</span>
             </div>
-            <h2 className="section-title">اختر تخصصك بسرعة</h2>
-            <p className="section-subtitle">اكتشف أفضل الأطباء في كل تخصص مع مقارنة واضحة للتقييمات والخبرة.</p>
+            <h2 className="text-lg sm:text-xl font-bold">اختر تخصصك بسرعة</h2>
           </div>
-          <Link to="/doctors" className="btn-soft text-xs whitespace-nowrap">كل التخصصات</Link>
+          <Link to="/doctors" className="btn-soft text-xs whitespace-nowrap px-3 py-1.5">كل التخصصات</Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {specialties.map((spec) => {
             const IconComp = iconMap[spec.icon] || Stethoscope;
             return (
-              <Link key={spec.id} to={`/doctors?specialty=${spec.id}`} className="card-hover p-5 flex items-center gap-3.5 text-right group">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/15">
-                  <IconComp className="w-6 h-6 text-primary" />
+              <Link key={spec.id} to={`/doctors?specialty=${spec.id}`} className="card-hover p-3 sm:p-4 flex items-center gap-3 text-right group">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/15">
+                  <IconComp className="w-5 h-5 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-foreground truncate">{spec.name}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{spec.doctorCount} دكتور</p>
+                  <p className="text-sm font-semibold text-foreground truncate">{spec.name}</p>
+                  <p className="text-xs text-muted-foreground">{spec.doctorCount} دكتور</p>
                 </div>
               </Link>
             );
