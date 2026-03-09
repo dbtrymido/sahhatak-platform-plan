@@ -49,7 +49,7 @@ export default function DoctorCard({ doctor, variant = "grid" }: DoctorCardProps
           {doctor.available && (
             <div className="flex items-center gap-1 text-xs text-success font-medium">
               <Clock className="w-3.5 h-3.5" />
-              <span>متاح اليوم: {doctor.nextSlot}</span>
+              <span>متاح اليوم: {doctor.nextAvailableSlot}</span>
             </div>
           )}
           <Link to={`/doctors/${doctor.id}`} className="btn-primary text-xs w-full sm:w-auto text-center">
