@@ -44,9 +44,11 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Glow Circles */}
-      <div className="pointer-events-none absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-white/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-32 -right-24 w-[380px] h-[380px] rounded-full bg-cyan-200/10 blur-[120px]" />
+      {/* الدوائر الهندسية (تم إصلاحها لتطابق التصميم القديم)
+        تم إزالة التمويه (blur) وتكبير الأحجام لتكسر اللون بشكل صريح 
+      */}
+      <div className="pointer-events-none absolute -top-48 -right-48 w-[700px] h-[700px] rounded-full bg-white/10" />
+      <div className="pointer-events-none absolute -bottom-64 -left-48 w-[800px] h-[800px] rounded-full bg-white/10" />
 
       {/* Hero Container */}
       <div className="relative container-app pt-8 pb-14 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-18">
@@ -72,7 +74,6 @@ export default function HeroSection() {
           <div className="w-full max-w-3xl">
             <div className="bg-white rounded-3xl shadow-xl border border-white/40 p-4 sm:p-6 mx-auto">
               
-              {/* تم دمج الموبايل والديسكتوب في فورم واحد متجاوب */}
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-end gap-3 sm:gap-4">
                 
                 {/* Specialty Select */}
