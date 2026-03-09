@@ -4,7 +4,7 @@ import type { DoctorProfile, AvailabilitySlot, Review } from "@/types/domain";
  * Extended doctor type for mock data — includes UI-only fields
  * that won't come from the API but are computed on the frontend.
  */
-export interface MockDoctor extends DoctorProfile {
+export interface MockDoctor extends Omit<DoctorProfile, "specialty"> {
   name: string;             // joined from User.fullName
   specialty: string;        // joined from Specialty.name
   nextSlot: string;         // computed from AvailabilitySlots

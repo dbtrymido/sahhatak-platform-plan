@@ -4,12 +4,14 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import RatingStars from "@/components/shared/RatingStars";
 import MapPlaceholder from "@/components/shared/MapPlaceholder";
-import { pharmacies } from "@/data/pharmacies";
+import { pharmacies, getPharmacyInventory, getPharmacyReviews } from "@/data/pharmacies";
 import { formatPrice } from "@/lib/formatters";
 
 export default function PharmacyProfile() {
   const { id } = useParams();
   const pharmacy = pharmacies.find((p) => p.id === id);
+  const inventory = id ? getPharmacyInventory(id) : [];
+  const reviews = id ? getPharmacyReviews(id) : [];
 
   if (!pharmacy) {
     return <div className="min-h-screen flex flex-col"><Navbar /><main className="flex-1 flex items-center justify-center"><p>لم يتم العثور على الصيدلية</p></main></div>;
@@ -69,23 +71,27 @@ export default function PharmacyProfile() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {pharmacy.medicines.map((med) => (
-                    <div key={med.id} className="flex items-center gap-3 p-3 rounded-xl border border-border hover:border-primary transition-colors">
-                      <div className="w-14 h-14 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: med.imageColor + "20" }}>
-                        <div className="w-8 h-8 rounded" style={{ backgroundColor: med.imageColor }} />
+                  {inventory.map((inv) => {
+                    const med = inv.medicine;
+                    if (!med) return null;
+                    return (
+                      <div key={inv.id} className="flex items-center gap-3 p-3 rounded-xl border border-border hover:border-primary transition-colors">
+                        <div className="w-14 h-14 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: med.imageColor + "20" }}>
+                          <div className="w-8 h-8 rounded" style={{ backgroundColor: med.imageColor }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-sm truncate">{med.name}</h4>
+                          <p className="text-xs text-muted-foreground truncate">{med.description}</p>
+                        </div>
+                        <div className="text-left flex items-center gap-2">
+                          <span className="font-bold text-primary text-sm">{formatPrice(inv.price)}</span>
+                          <button className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+                            <ShoppingCart className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm truncate">{med.name}</h4>
-                        <p className="text-xs text-muted-foreground truncate">{med.description}</p>
-                      </div>
-                      <div className="text-left flex items-center gap-2">
-                        <span className="font-bold text-primary text-sm">{formatPrice(med.price)}</span>
-                        <button className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
-                          <ShoppingCart className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <button className="btn-outline w-full mt-4 text-sm">عرض كافة المنتجات</button>
               </div>
@@ -93,23 +99,23 @@ export default function PharmacyProfile() {
               {/* Reviews */}
               <div className="card-base p-6">
                 <h2 className="font-bold text-lg mb-4">تقييمات المرضى</h2>
-                {pharmacy.reviews.length === 0 ? (
+                {reviews.length === 0 ? (
                   <p className="text-sm text-muted-foreground">لا توجد تقييمات بعد</p>
                 ) : (
-                  pharmacy.reviews.map((r, i) => (
-                    <div key={i} className="flex items-start gap-3 mb-4 last:mb-0">
+                  reviews.map((r) => (
+                    <div key={r.id} className="flex items-start gap-3 mb-4 last:mb-0">
                       <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-sm font-bold text-primary shrink-0">
-                        {r.name.charAt(0)}
+                        {(r.patientName || "م").charAt(0)}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <h4 className="font-semibold text-sm">{r.name}</h4>
-                          <span className="text-xs text-muted-foreground">{r.date}</span>
+                          <h4 className="font-semibold text-sm">{r.patientName}</h4>
+                          <span className="text-xs text-muted-foreground">{r.createdAt}</span>
                         </div>
                         <div className="flex gap-0.5 my-1">
                           {[1,2,3,4,5].map(s => <Star key={s} className={`w-3 h-3 ${s <= r.rating ? "fill-warning text-warning" : "text-border"}`} />)}
                         </div>
-                        <p className="text-sm text-muted-foreground">{r.text}</p>
+                        <p className="text-sm text-muted-foreground">{r.comment}</p>
                       </div>
                     </div>
                   ))
