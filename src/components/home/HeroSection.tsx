@@ -28,7 +28,7 @@ export default function HeroSection() {
       <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/12 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-cyan-200/14 blur-3xl" />
       <div
-        className="absolute inset-0 opacity-[0.035]"
+        className="absolute inset-0 opacity-[0.1]"
         style={{
           backgroundImage:
             "radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px)",
