@@ -16,7 +16,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden min-h-[85vh] flex items-center">
+    <section className="relative overflow-hidden py-16 lg:py-24 flex items-center">
       {/* Modern gradient background */}
       <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
       
