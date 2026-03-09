@@ -1,19 +1,18 @@
-import type { DoctorProfile, AvailabilitySlot, Review } from "@/types/domain";
+/**
+ * Mock doctor data matching the ASP.NET backend DoctorProfile entity.
+ * Replace with real API calls via doctorApi when backend is ready.
+ */
 
-export interface MockDoctor extends Omit<DoctorProfile, "specialty"> {
-  name: string;
-  specialty: string;
-  nextSlot: string;
-  avatarColor: string;
-  initials: string;
-}
+import type { DoctorProfile } from "@/types/domain";
 
+/** UI-only time slot (flattened from AvailabilitySlot for mock purposes) */
 export interface MockTimeSlot {
   time: string;
   available: boolean;
   period: "morning" | "evening";
 }
 
+/** UI-only review (flattened from Review for mock purposes) */
 export interface MockReview {
   name: string;
   rating: number;
@@ -21,7 +20,8 @@ export interface MockReview {
   date: string;
 }
 
-export interface Doctor extends MockDoctor {
+/** Full mock doctor — DoctorProfile + UI helpers */
+export interface Doctor extends DoctorProfile {
   timeSlots: MockTimeSlot[];
   reviews: MockReview[];
 }
@@ -31,7 +31,7 @@ export const doctors: Doctor[] = [
     id: "1",
     userId: "u1",
     specialtyId: "heart",
-    name: "د. أحمد محمد",
+    fullName: "د. أحمد محمد",
     specialty: "أخصائي أمراض القلب والقسطرة التداخلية",
     title: "استشاري جراحة القلب والأوعية الدموية",
     rating: 4.9,
@@ -39,11 +39,11 @@ export const doctors: Doctor[] = [
     price: 400,
     city: "القاهرة",
     area: "مدينة نصر",
-    experience: 15,
-    bio: "د. أحمد محمد هو استشاري متميز في جراحة القلب مع خبرة تزيد عن 15 عاماً في علاج الحالات المعقدة وجراحة المناظير. حصل على زمالة جراحة القلب من الكلية الملكية للجراحين، ويتخصص في إجراء عمليات القلب المفتوح المعقدة وجراحات الصمامات.",
+    yearsOfExperience: 15,
+    bio: "د. أحمد محمد هو استشاري متميز في جراحة القلب مع خبرة تزيد عن 15 عاماً في علاج الحالات المعقدة وجراحة المناظير. حصل على زمالة جراحة القلب من الكلية الملكية للجراحين.",
     gender: "male",
     available: true,
-    nextSlot: "05:00 م",
+    nextAvailableSlot: "05:00 م",
     avatarColor: "#1B5A8A",
     initials: "أ.م",
     tags: ["قسطرة قلبية", "تخطيط قلب", "جهد قلب", "أمراض الشرايين"],
@@ -62,19 +62,18 @@ export const doctors: Doctor[] = [
       { time: "02:00 م", available: true, period: "evening" },
       { time: "02:30 م", available: false, period: "evening" },
       { time: "03:00 م", available: true, period: "evening" },
-      { time: "03:30 م", available: true, period: "evening" },
-      { time: "04:00 م", available: true, period: "evening" },
+      { time: "05:00 م", available: true, period: "evening" },
     ],
     reviews: [
-      { name: "مريم حسن", rating: 5, text: "طبيب ممتاز جداً وشاطر في تشخيصه. عملي عملية وكانت ناجحة بكل المقاييس. أنصح بيه جداً.", date: "قبل أسبوع" },
-      { name: "عبدالرحمن خالد", rating: 5, text: "التعامل راقي جداً والعيادة مجهزة بأحدث الأجهزة. الدكتور بيسمع للمريض كويس جداً.", date: "قبل شهر" },
+      { name: "مريم حسن", rating: 5, text: "طبيب ممتاز جداً وشاطر في تشخيصه. عملية ناجحة بكل المقاييس.", date: "قبل أسبوع" },
+      { name: "عبدالرحمن خالد", rating: 5, text: "التعامل راقي جداً والعيادة مجهزة بأحدث الأجهزة.", date: "قبل شهر" },
     ],
   },
   {
     id: "2",
     userId: "u2",
     specialtyId: "heart",
-    name: "د. سارة علي",
+    fullName: "د. سارة علي",
     specialty: "استشاري جراحة القلب والأوعية الدموية",
     title: "استشارية جراحة القلب",
     rating: 4.9,
@@ -82,11 +81,11 @@ export const doctors: Doctor[] = [
     price: 550,
     city: "القاهرة",
     area: "المعادي",
-    experience: 12,
+    yearsOfExperience: 12,
     bio: "متخصصة في جراحات القلب المفتوح وتغيير الصمامات، حاصلة على الزمالة الكندية في جراحة القلب.",
     gender: "female",
     available: true,
-    nextSlot: "09:00 ص",
+    nextAvailableSlot: "09:00 ص",
     avatarColor: "#2D8B6F",
     initials: "س.ع",
     tags: ["جراحة مناظير", "أمراض الصمامات"],
@@ -108,7 +107,7 @@ export const doctors: Doctor[] = [
     id: "3",
     userId: "u3",
     specialtyId: "bones",
-    name: "د. محمد حسن",
+    fullName: "د. محمد حسن",
     specialty: "جراحة العظام",
     title: "استشاري جراحة العظام",
     rating: 4.7,
@@ -116,11 +115,11 @@ export const doctors: Doctor[] = [
     price: 350,
     city: "الجيزة",
     area: "الدقي",
-    experience: 18,
+    yearsOfExperience: 18,
     bio: "خبرة واسعة في جراحة العظام والمفاصل الصناعية.",
     gender: "male",
     available: true,
-    nextSlot: "10:30 ص",
+    nextAvailableSlot: "10:30 ص",
     avatarColor: "#8B5A2D",
     initials: "م.ح",
     tags: ["مفاصل صناعية", "جراحة العمود الفقري"],
@@ -136,7 +135,7 @@ export const doctors: Doctor[] = [
     id: "4",
     userId: "u4",
     specialtyId: "children",
-    name: "د. كريم محمود",
+    fullName: "د. كريم محمود",
     specialty: "أخصائي طب الأطفال",
     title: "استشاري طب الأطفال",
     rating: 4.8,
@@ -144,11 +143,11 @@ export const doctors: Doctor[] = [
     price: 200,
     city: "الإسكندرية",
     area: "سموحة",
-    experience: 10,
+    yearsOfExperience: 10,
     bio: "طبيب أطفال متخصص في الأمراض المعدية والتطعيمات.",
     gender: "male",
     available: true,
-    nextSlot: "11:00 ص",
+    nextAvailableSlot: "11:00 ص",
     avatarColor: "#6B4C8A",
     initials: "ك.م",
     tags: ["أمراض معدية", "تطعيمات"],
@@ -164,7 +163,7 @@ export const doctors: Doctor[] = [
     id: "5",
     userId: "u5",
     specialtyId: "teeth",
-    name: "د. محمود عبد الرحمن",
+    fullName: "د. محمود عبد الرحمن",
     specialty: "استشاري طب الأسنان",
     title: "استشاري طب الأسنان",
     rating: 4.9,
@@ -172,11 +171,11 @@ export const doctors: Doctor[] = [
     price: 250,
     city: "القاهرة",
     area: "مصر الجديدة",
-    experience: 8,
+    yearsOfExperience: 8,
     bio: "متخصص في تجميل الأسنان والتقويم.",
     gender: "male",
     available: true,
-    nextSlot: "02:00 م",
+    nextAvailableSlot: "02:00 م",
     avatarColor: "#2D6B8B",
     initials: "م.ع",
     tags: ["تجميل أسنان", "تقويم"],
@@ -192,7 +191,7 @@ export const doctors: Doctor[] = [
     id: "6",
     userId: "u6",
     specialtyId: "bones",
-    name: "د. حسام الدين فاروق",
+    fullName: "د. حسام الدين فاروق",
     specialty: "جراحة العظام",
     title: "استشاري جراحة العظام",
     rating: 4.8,
@@ -200,11 +199,11 @@ export const doctors: Doctor[] = [
     price: 300,
     city: "المنصورة",
     area: "شارع الجمهورية",
-    experience: 14,
+    yearsOfExperience: 14,
     bio: "متخصص في جراحة المفاصل والكسور المعقدة.",
     gender: "male",
     available: true,
-    nextSlot: "04:30 م",
+    nextAvailableSlot: "04:30 م",
     avatarColor: "#5A7B2D",
     initials: "ح.ف",
     tags: ["مفاصل", "كسور"],
