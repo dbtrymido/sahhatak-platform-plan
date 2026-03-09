@@ -44,7 +44,7 @@ export default function DoctorProfile() {
             <ChevronLeft className="w-3.5 h-3.5" />
             <Link to="/doctors" className="hover:text-primary">بحث الأطباء</Link>
             <ChevronLeft className="w-3.5 h-3.5" />
-            <span className="text-foreground font-medium">{doctor.name}</span>
+            <span className="text-foreground font-medium">{doctor.fullName}</span>
           </nav>
 
           <div className="flex flex-col lg:flex-row gap-6">
