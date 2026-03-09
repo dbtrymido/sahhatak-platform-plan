@@ -18,6 +18,8 @@ export default function BookingPage() {
   const selectedDate = weekDates[dateIdx];
 
   const [form, setForm] = useState({ name: "", phone: "", email: "", reason: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const update = (field: string, value: string) => setForm((f) => ({ ...f, [field]: value }));
 
   if (!doctor) {
@@ -38,135 +40,213 @@ export default function BookingPage() {
   const vat = price * 0.15;
   const total = price + vat;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate booking process
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsSubmitting(false);
     navigate(`/booking/confirmation?doctor=${doctor.id}&time=${selectedTime}`);
   };
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 bg-background py-6 lg:py-10">
-        <div className="container-app max-w-5xl">
-          <nav className="text-sm text-muted-foreground mb-5 flex items-center gap-1">
-            <Link to={`/doctors/${doctor.id}`} className="hover:text-primary">اختيار الطبيب</Link>
-            <ChevronLeft className="w-3.5 h-3.5" />
+      <main className="flex-1 bg-background section-padding-sm">
+        <div className="container-app max-w-6xl">
+          {/* Mobile-Friendly Breadcrumb */}
+          <nav className="text-sm text-muted-foreground mb-6 flex items-center gap-2">
+            <Link to={`/doctors/${doctor.id}`} className="hover:text-primary transition-colors">اختيار الطبيب</Link>
+            <ChevronLeft className="w-4 h-4" />
             <span className="text-foreground font-medium">بيانات المريض</span>
           </nav>
 
+          {/* Enhanced Step Indicator for Mobile */}
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-1 mb-3">
+            <div className="step-indicator mb-4">
               <div className="step-dot completed"><CheckCircle2 className="w-4 h-4" /></div>
               <div className="step-line active"></div>
               <div className="step-dot active">٢</div>
               <div className="step-line"></div>
               <div className="step-dot pending">٣</div>
             </div>
-            <h1 className="text-3xl font-bold mb-2">بيانات المريض</h1>
-            <p className="text-sm text-muted-foreground">أدخل بياناتك لإتمام حجز الموعد</p>
+            <h1 className="page-title">تأكيد بيانات المريض</h1>
+            <p className="page-subtitle">أدخل بياناتك لإتمام حجز الموعد بأمان</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="card-base p-6 border-2 border-primary/20">
-              <h2 className="font-bold text-xl mb-5 flex items-center gap-2">
-                <User className="w-5 h-5 text-primary" /> تفاصيل المريض
-              </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            {/* Enhanced Patient Form - Mobile First */}
+            <div className="card-base border-2 border-primary/20 card-padding">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <User className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="card-title">تفاصيل المريض</h2>
+                  <p className="text-xs text-muted-foreground">معلومات مطلوبة للحجز</p>
+                </div>
+              </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-right">الاسم الكامل *</label>
+                    <label className="block text-sm font-semibold mb-2 text-right">الاسم الكامل *</label>
                     <div className="relative">
-                      <input className="input-field pr-10" placeholder="الاسم الثلاثي" value={form.name} onChange={(e) => update("name", e.target.value)} required />
-                      <User className="absolute top-1/2 -translate-y-1/2 right-3.5 w-4 h-4 text-muted-foreground" />
+                      <input 
+                        className="input-field pr-12" 
+                        placeholder="الاسم الثلاثي" 
+                        value={form.name} 
+                        onChange={(e) => update("name", e.target.value)} 
+                        required 
+                      />
+                      <User className="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-muted-foreground" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-right">رقم الهاتف *</label>
+                    <label className="block text-sm font-semibold mb-2 text-right">رقم الهاتف *</label>
                     <div className="relative">
-                      <input className="input-field pr-10" placeholder="01xxxxxxxxx" value={form.phone} onChange={(e) => update("phone", e.target.value)} required />
-                      <Phone className="absolute top-1/2 -translate-y-1/2 right-3.5 w-4 h-4 text-muted-foreground" />
+                      <input 
+                        className="input-field pr-12" 
+                        placeholder="01xxxxxxxxx" 
+                        type="tel"
+                        value={form.phone} 
+                        onChange={(e) => update("phone", e.target.value)} 
+                        required 
+                      />
+                      <Phone className="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-muted-foreground" />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-right">البريد الإلكتروني</label>
+                  <label className="block text-sm font-semibold mb-2 text-right">البريد الإلكتروني</label>
                   <div className="relative">
-                    <input type="email" className="input-field pr-10" placeholder="example@domain.com" value={form.email} onChange={(e) => update("email", e.target.value)} />
-                    <Mail className="absolute top-1/2 -translate-y-1/2 right-3.5 w-4 h-4 text-muted-foreground" />
+                    <input 
+                      type="email" 
+                      className="input-field pr-12" 
+                      placeholder="example@domain.com" 
+                      value={form.email} 
+                      onChange={(e) => update("email", e.target.value)} 
+                    />
+                    <Mail className="absolute top-1/2 -translate-y-1/2 right-4 w-5 h-5 text-muted-foreground" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-right">سبب الزيارة</label>
+                  <label className="block text-sm font-semibold mb-2 text-right">سبب الزيارة</label>
                   <div className="relative">
-                    <textarea className="input-field pr-10 min-h-[120px] resize-y" placeholder="اشرح باختصار الأعراض أو سبب المراجعة..." value={form.reason} onChange={(e) => update("reason", e.target.value)} />
-                    <FileText className="absolute top-3.5 right-3.5 w-4 h-4 text-muted-foreground" />
+                    <textarea 
+                      className="textarea-field pr-12" 
+                      placeholder="اشرح باختصار الأعراض أو سبب المراجعة..." 
+                      value={form.reason} 
+                      onChange={(e) => update("reason", e.target.value)} 
+                    />
+                    <FileText className="absolute top-4 right-4 w-5 h-5 text-muted-foreground" />
                   </div>
                 </div>
 
-                <button type="submit" className="btn-primary w-full py-4 text-base">
-                  تأكيد الحجز
-                  <ChevronLeft className="w-4 h-4" />
+                <button 
+                  type="submit" 
+                  className="btn-cta w-full gap-3 mt-6"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="loading-spinner w-5 h-5" />
+                      جاري التأكيد...
+                    </>
+                  ) : (
+                    <>
+                      تأكيد الحجز
+                      <ChevronLeft className="w-5 h-5" />
+                    </>
+                  )}
                 </button>
               </form>
             </div>
 
-            <div className="space-y-5">
-              <div className="card-base p-6">
-                <h2 className="font-bold text-xl mb-5">ملخص الحجز</h2>
+            {/* Enhanced Booking Summary - Mobile Optimized */}
+            <div className="space-y-6">
+              <div className="card-base card-padding">
+                <h2 className="card-title mb-6">ملخص الحجز</h2>
 
-                <div className="flex items-center gap-4 mb-6 p-4 rounded-xl bg-muted/30">
-                  <DoctorAvatar initials={doctor.initials} color={doctor.avatarColor} size="sm" />
+                {/* Doctor Info Card */}
+                <div className="flex items-center gap-4 mb-6 p-4 rounded-2xl bg-primary/5 border border-primary/10">
+                  <DoctorAvatar initials={doctor.initials} color={doctor.avatarColor} size="md" />
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-sm truncate">{doctor.fullName}</h3>
-                    <p className="text-xs text-primary truncate">{doctor.specialty}</p>
+                    <h3 className="font-bold text-base truncate">{doctor.fullName}</h3>
+                    <p className="text-sm text-primary truncate">{doctor.specialty}</p>
+                  </div>
+                  <div className="shrink-0">
+                    <CheckCircle2 className="w-6 h-6 text-success" />
                   </div>
                 </div>
 
-                <div className="space-y-3.5 mb-5">
+                {/* Appointment Details */}
+                <div className="space-y-4 mb-6">
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <Calendar className="w-4 h-4 text-primary" />
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Calendar className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-muted-foreground">التاريخ:</span>
-                    <span className="mr-auto font-medium">{selectedDate?.day}، {selectedDate?.date}</span>
+                    <div className="flex-1">
+                      <span className="text-muted-foreground text-xs block">التاريخ</span>
+                      <span className="font-semibold">{selectedDate?.day}، {selectedDate?.date}</span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <Clock className="w-4 h-4 text-primary" />
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-muted-foreground">الوقت:</span>
-                    <span className="mr-auto font-medium">{selectedTime}</span>
+                    <div className="flex-1">
+                      <span className="text-muted-foreground text-xs block">الوقت</span>
+                      <span className="font-semibold">{selectedTime}</span>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <MapPin className="w-4 h-4 text-primary" />
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-muted-foreground">الموقع:</span>
-                    <span className="mr-auto font-medium text-xs">{doctor.area}، {doctor.city}</span>
+                    <div className="flex-1">
+                      <span className="text-muted-foreground text-xs block">الموقع</span>
+                      <span className="font-medium text-xs">{doctor.area}، {doctor.city}</span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="divider-dashed"></div>
 
-                <div className="space-y-2.5 text-sm">
-                  <div className="flex justify-between"><span className="text-muted-foreground">رسوم الكشف</span><span className="font-medium">{formatPrice(price)}</span></div>
-                  <div className="flex justify-between"><span className="text-muted-foreground">ضريبة القيمة المضافة (15%)</span><span className="font-medium">{formatPrice(vat)}</span></div>
+                {/* Enhanced Price Breakdown */}
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">رسوم الكشف</span>
+                    <span className="font-semibold">{formatPrice(price)}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">ضريبة القيمة المضافة (15%)</span>
+                    <span className="font-semibold">{formatPrice(vat)}</span>
+                  </div>
                   <div className="divider-dashed"></div>
-                  <div className="flex justify-between text-base font-bold"><span>الإجمالي</span><span className="text-primary">{formatPrice(total)}</span></div>
+                  <div className="flex justify-between items-center text-base">
+                    <span className="font-bold">الإجمالي</span>
+                    <span className="font-bold text-lg text-primary">{formatPrice(total)}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="card-base p-5 bg-info-light border-info/20">
+              {/* Important Notice */}
+              <div className="card-base p-4 bg-info-light border-info/20">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg bg-info/20 flex items-center justify-center shrink-0">
-                    <AlertCircle className="w-4 h-4 text-info" />
+                    <AlertCircle className="w-5 h-5 text-info" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-sm mb-1">معلومة مهمة</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">سيتم إرسال رسالة تأكيد على البريد الإلكتروني ورقم الهاتف بعد إتمام الحجز.</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      سيتم إرسال رسالة تأكيد على البريد الإلكتروني ورقم الهاتف بعد إتمام الحجز. 
+                      الدفع يتم في العيادة بعد الانتهاء من الكشف.
+                    </p>
                   </div>
                 </div>
               </div>
