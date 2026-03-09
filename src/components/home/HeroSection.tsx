@@ -22,11 +22,11 @@ export default function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, #0b3c5d 0%, #0f6f7c 45%, #12a2b8 100%)",
+            "linear-gradient(135deg, #1E88E5 0%, #2BB6E6 45%, #4FC3F7 100%)",
         }}
       />
-      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-cyan-400/18 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-sky-500/16 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-white/12 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-cyan-200/14 blur-3xl" />
       <div
         className="absolute inset-0 opacity-[0.035]"
         style={{
@@ -36,28 +36,31 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative container-app pt-10 pb-18 sm:pt-14 sm:pb-22 lg:pt-16 lg:pb-28">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center gap-6 lg:gap-7">
+      <div className="relative container-app pt-10 pb-20 sm:pt-14 sm:pb-24 lg:pt-16 lg:pb-28">
+        {/* Subtle glow for depth */}
+        <div className="pointer-events-none absolute inset-x-0 top-8 mx-auto h-72 w-[min(44rem,92vw)] rounded-[999px] bg-gradient-to-r from-white/18 via-cyan-100/22 to-white/18 blur-3xl" />
+
+        <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center gap-5 sm:gap-6 lg:gap-7">
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-card/10 px-3 py-1.5 text-xs font-medium text-primary-foreground border border-card/20 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-white/14 px-3 py-1.5 text-xs font-medium text-primary-foreground border border-white/20 backdrop-blur-sm">
             <ShieldCheck className="h-3.5 w-3.5" />
             <span>منصة رعاية صحية موثوقة في مصر</span>
           </div>
 
           {/* Headline & description */}
           <div className="max-w-2xl">
-            <h1 className="text-primary-foreground text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-tight mb-2 sm:mb-3">
+            <h1 className="text-primary-foreground text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight mb-2 sm:mb-3">
               احجز أفضل الأطباء في مصر بسهولة
             </h1>
 
-            <p className="text-primary-foreground/80 text-sm sm:text-base lg:text-lg leading-relaxed">
+            <p className="text-primary-foreground/90 text-sm sm:text-base lg:text-lg leading-relaxed">
               ابحث حسب التخصص والمدينة، قارن التقييمات والأسعار، واحجز موعدك في دقائق.
             </p>
           </div>
 
           {/* Search Card (primary action) */}
           <div className="w-full max-w-3xl">
-            <div className="bg-card/95 rounded-3xl shadow-2xl border border-border/60 p-4 sm:p-6 lg:p-7 mx-auto backdrop-blur-md">
+            <div className="bg-white/95 rounded-3xl shadow-2xl border border-white/40 p-5 sm:p-7 lg:p-8 mx-auto backdrop-blur-md">
               {/* Desktop: inline row */}
               <div className="hidden sm:flex items-end gap-3 sm:gap-4">
                 <div className="flex-1">
@@ -155,7 +158,7 @@ export default function HeroSection() {
                   <button
                     key={spec.id}
                     onClick={() => setSpecialty(spec.id)}
-                    className="text-[11px] sm:text-xs font-medium px-3 py-1.5 rounded-full bg-primary/5 text-primary-foreground/80 border border-primary/10 hover:bg-primary/10 hover:text-primary transition-colors"
+                    className="text-[11px] sm:text-xs font-medium px-3 py-1.5 rounded-full bg-sky-500/10 text-sky-900/80 border border-sky-500/15 hover:bg-sky-500/15 hover:text-sky-900 transition-colors"
                   >
                     {spec.name}
                   </button>
@@ -175,14 +178,14 @@ export default function HeroSection() {
               return (
                 <div
                   key={stat.label}
-                  className="flex items-center gap-2 rounded-2xl bg-card/60 px-3.5 py-2 sm:px-4 sm:py-2.5 border border-white/10 shadow-sm text-primary-foreground/90"
+                  className="flex items-center gap-2 rounded-2xl bg-white/15 px-3.5 py-2 sm:px-4 sm:py-2.5 border border-white/18 shadow-sm backdrop-blur-md text-primary-foreground"
                 >
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/18 text-primary-foreground">
                     <Icon className="h-3.5 w-3.5" />
                   </span>
                   <div className="text-right">
-                    <p className="text-xs sm:text-sm font-semibold leading-tight">{stat.value}</p>
-                    <p className="text-[10px] sm:text-xs text-primary-foreground/70 leading-tight">
+                    <p className="text-sm sm:text-base font-bold leading-tight tracking-tight">{stat.value}</p>
+                    <p className="text-[10px] sm:text-xs text-primary-foreground/80 leading-tight">
                       {stat.label}
                     </p>
                   </div>
