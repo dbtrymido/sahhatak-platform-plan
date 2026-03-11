@@ -93,7 +93,7 @@ export default function Footer() {
       {/* Bottom */}
       <div className="border-t border-primary-foreground/10">
         <div className="container-app py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-60">
-          <span>© 2024 منصة صحتك الطبية.</span>
+          <span>© 2026 منصة صحتك الطبية.</span>
           <span className="flex items-center gap-1">صُنع بـ <Heart className="w-3 h-3 fill-current text-red-400" /> في مصر 🇪🇬</span>
         </div>
       </div>
