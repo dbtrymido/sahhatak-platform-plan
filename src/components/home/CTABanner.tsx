@@ -21,12 +21,12 @@ export default function CTABanner() {
               صحتك بين إيديك... احجز دكتورك دلوقتي! 💙
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-2 justify-center">
-              <Link to="/doctors" className="inline-flex items-center justify-center gap-2 rounded-xl bg-card px-5 py-2.5 text-sm font-bold text-primary hover:scale-105 transition-transform">
+            <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center">
+              <Link to="/doctors" className="inline-flex items-center justify-center gap-2 rounded-xl bg-card px-5 py-2.5 lg:px-7 lg:py-3.5 text-sm lg:text-base font-bold text-primary hover:scale-105 transition-transform">
                 احجز موعدك الآن
                 <ArrowLeft className="w-4 h-4" />
               </Link>
-              <Link to="/register" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-card/40 px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-card/10 transition-colors">
+              <Link to="/register" className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-card/40 px-5 py-2.5 lg:px-7 lg:py-3.5 text-sm lg:text-base font-medium text-primary-foreground hover:bg-card/10 transition-colors">
                 سجّل مجاناً
               </Link>
             </div>

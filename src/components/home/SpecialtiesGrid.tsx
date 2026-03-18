@@ -25,13 +25,13 @@ export default function SpecialtiesGrid() {
           {specialties.map((spec) => {
             const IconComp = iconMap[spec.icon] || Stethoscope;
             return (
-              <Link key={spec.id} to={`/doctors?specialty=${spec.id}`} className="card-hover p-3 sm:p-4 flex items-center gap-3 text-right group">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/15">
-                  <IconComp className="w-5 h-5 text-primary" />
+              <Link key={spec.id} to={`/doctors?specialty=${spec.id}`} className="card-hover p-3 sm:p-4 lg:p-5 flex items-center gap-3 lg:gap-4 text-right group">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary/15">
+                  <IconComp className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground truncate">{spec.name}</p>
-                  <p className="text-xs text-muted-foreground">{spec.doctorCount} دكتور</p>
+                  <p className="text-sm lg:text-base font-semibold text-foreground truncate">{spec.name}</p>
+                  <p className="text-xs lg:text-sm text-muted-foreground">{spec.doctorCount} دكتور</p>
                 </div>
               </Link>
             );
