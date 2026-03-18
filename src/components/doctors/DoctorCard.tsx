@@ -69,30 +69,30 @@ export default function DoctorCard({ doctor, variant = "grid" }: DoctorCardProps
 
   // Grid variant
   return (
-    <article className="card-hover p-5 flex flex-col h-full animate-in">
+    <article className="card-hover p-5 lg:p-6 flex flex-col h-full animate-in">
       {/* Header */}
-      <div className="flex items-start gap-3 mb-4">
+      <div className="flex items-start gap-3 lg:gap-4 mb-4">
         <DoctorAvatar initials={doctor.initials} color={doctor.avatarColor} size="sm" />
         <div className="flex-1 min-w-0 text-right">
-          <h3 className="font-bold text-foreground text-sm leading-tight truncate">{doctor.fullName}</h3>
-          <p className="text-xs text-primary font-semibold mt-1 truncate">{doctor.specialty}</p>
-          {doctor.available && <span className="badge-available text-[10px] mt-1 inline-flex">متاح</span>}
+          <h3 className="font-bold text-foreground text-sm lg:text-base leading-tight truncate">{doctor.fullName}</h3>
+          <p className="text-xs lg:text-sm text-primary font-semibold mt-1 truncate">{doctor.specialty}</p>
+          {doctor.available && <span className="badge-available text-[10px] lg:text-xs mt-1 inline-flex">متاح</span>}
         </div>
       </div>
 
       {/* Details */}
-      <div className="space-y-2 text-xs text-muted-foreground mb-3">
+      <div className="space-y-2 text-xs lg:text-sm text-muted-foreground mb-3">
         <div className="flex items-center gap-1.5">
-          <BriefcaseMedical className="w-3.5 h-3.5 shrink-0" />
+          <BriefcaseMedical className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0" />
           <span>{doctor.yearsOfExperience} سنة خبرة</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5 shrink-0" />
+          <MapPin className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0" />
           <span>{doctor.city}</span>
         </div>
         {doctor.nextAvailableSlot && (
           <div className="flex items-center gap-1.5">
-            <CalendarClock className="w-3.5 h-3.5 shrink-0 text-success" />
+            <CalendarClock className="w-3.5 h-3.5 lg:w-4 lg:h-4 shrink-0 text-success" />
             <span className="text-success font-medium">{doctor.nextAvailableSlot}</span>
           </div>
         )}
@@ -106,12 +106,12 @@ export default function DoctorCard({ doctor, variant = "grid" }: DoctorCardProps
       {/* Footer */}
       <div className="mt-auto pt-4 border-t border-border/60 flex items-center justify-between gap-3">
         <div>
-          <span className="text-[11px] text-muted-foreground">الكشف</span>
-          <p className="text-lg font-bold text-primary leading-none mt-0.5">{formatPrice(doctor.price)}</p>
+          <span className="text-[11px] lg:text-xs text-muted-foreground">الكشف</span>
+          <p className="text-lg lg:text-xl font-bold text-primary leading-none mt-0.5">{formatPrice(doctor.price)}</p>
         </div>
         <Link 
           to={`/doctors/${doctor.id}`} 
-          className="btn-primary text-xs px-4 py-2.5"
+          className="btn-primary text-xs lg:text-sm px-4 lg:px-5 py-2.5"
         >
           احجز الآن
         </Link>
