@@ -14,10 +14,10 @@ export default function CTABanner() {
               <span>أكثر من مليون مستخدم</span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-primary-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-primary-foreground mb-2 lg:mb-3">
               ابدأ رحلتك لحياة صحية أفضل
             </h2>
-            <p className="text-sm text-primary-foreground/80 mb-5 max-w-md mx-auto">
+            <p className="text-sm lg:text-base text-primary-foreground/80 mb-5 lg:mb-7 max-w-md mx-auto">
               صحتك بين إيديك... احجز دكتورك دلوقتي! 💙
             </p>
 
